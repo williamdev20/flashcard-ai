@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <link rel="stylesheet" href="{% static 'css/cards/create_card.css' %}">
+    <title>Criar Cards</title>
+</head>
+<body>
+    <main>
+        <div class="card-container" x-data="{open: false}">
+            <form id="question-form" x-show="!open">
+                <textarea name="" id="question-textarea" placeholder="Escreva a pergunta aqui..."></textarea>
+            </form>
+            <form id="response-form" x-show="open">
+                <textarea name="" id="response-textarea" placeholder="Escreva a resposta aqui..."></textarea>
+            </form>
+            
+            <div class="button-container">
+                <button type="button" @click="open = !open">Mudar lado</button>
+                <button type="submit">Salvar Cartão</button>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
