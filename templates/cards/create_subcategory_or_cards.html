@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <link rel="stylesheet" href="{% static 'css/cards/create_subcategory_or_cards.css' %}">
+    <title>Criar subcategoria ou cartão</title>
+</head>
+<body>
+    <footer>
+        <div class="deltail-container" x-data="{open: false}">
+            <button class="create-category-button" @click="open = !open">+</button>
+
+            <div class="modal-create-category-container" x-show="open">
+                <div class="modal-create-category">
+                    <div class="button-close">
+                        <button class="close" type="button" @click="open = false"">X</button>
+                    </div>
+                <button class="button-details">Criar subcategoria</button>
+                <button class="button-details">Criar cartão</button>
+                <button class="button-details">Criar cartão com IA</button>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

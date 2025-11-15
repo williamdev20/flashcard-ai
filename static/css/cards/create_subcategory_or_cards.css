@@ -1,0 +1,87 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f5f5f5;
+}
+
+.button-details {
+    width: 200px;
+    height: 40px;
+    border: none;
+    background-color: #457d97;
+    color: #fff;
+    border-radius: 30px;
+    margin: 2px;
+}
+
+.button-details:hover {
+    background-color: #0f7d7e;
+}
+
+.modal-create-category-container {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    inset: 0;
+    background-color: rgba(0,0,0,.5);
+    backdrop-filter: blur(5px) saturate(150%);
+}
+
+.modal-create-category {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e7e4d5;
+    width: 350px;
+    height: 350px;
+    border-radius: 30px;
+    flex-direction: column;
+    gap: 20px;
+    position: absolute;
+}
+
+.create-category-button {
+    background-color: #0f7d7e;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    cursor: pointer;
+    margin: 10px;
+    bottom: 0;
+    position: fixed;
+    color: #fff;
+    text-align: center;
+    list-style: none;
+    font-size: 40px;
+    line-height: 50px;
+    border: none;
+}
+
+.create-category-button:hover {
+    background-color: #336666;
+}
+
+.button-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.button-close .close {
+    background-color: #d3c8b4;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    border: none;
+}
+
+.button-close .close:hover {
+    background-color: #d1c089;
+}

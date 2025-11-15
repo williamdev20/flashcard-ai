@@ -9,8 +9,37 @@
     <title>Suas categorias</title>
 </head>
 <body>
-    <main>
-        <div></div>
+    <main> 
+        <div class="categories-container">
+            <!-- Aqui vai vir um for pra listar todas as categorias -->
+             <a class="category-card" href="{% url 'create_subcategory_or_cards' %}">
+                Category 1
+             </a>
+             <a class="category-card" href="{% url 'create_subcategory_or_cards' %}">
+                Category 2
+             </a>
+             <a class="category-card" href="{% url 'create_subcategory_or_cards' %}">
+                Category 3
+             </a>
+        </div>
     </main>
+
+    <footer>
+        <div x-data="{open: false}">
+            <div class="deltail-container">
+                <button class="create-category-button" @click="open = !open">+</button>
+            </div>
+
+            <div class="modal-create-category-container" x-show="open">
+                <div class="modal-create-category">
+                    <div class="button-close">
+                        <button class="close" type="button" @click="open = false"">X</button>
+                    </div>
+                    <input type="text" placeholder="Nova categoria...">
+                    <button type="submit">Criar categoria</button>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
