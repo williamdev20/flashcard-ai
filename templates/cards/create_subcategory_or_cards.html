@@ -9,18 +9,76 @@
     <title>Criar subcategoria ou cartão</title>
 </head>
 <body>
-    <footer>
-        <div class="deltail-container" x-data="{open: false}">
-            <button class="create-category-button" @click="open = !open">+</button>
+    <main> 
+        <div class="subcategories-and-cards-container">
+            <!-- Aqui vai vir um for pra listar todas as categorias -->
+             <a class="subcategory-card" href="{% url 'create_subcategory_or_cards' %}">
+                Subcategory 1
+             </a>
+             <a class="subcategory-card" href="{% url 'create_subcategory_or_cards' %}">
+                Subcategory 2
+             </a>
+             <a class="subcategory-card" href="{% url 'create_subcategory_or_cards' %}">
+                Subcategory 3
+             </a>
 
-            <div class="modal-create-category-container" x-show="open">
-                <div class="modal-create-category">
+             <!-- Aqui vai vir um for pra listar os cards -->
+              <a class="card" href="">
+                Deck 1
+              </a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="deltail-container" x-data="{
+                open: false,
+                open_subcategory: false,
+                open_card_ai: false,
+                open_chat_ai: false
+              }">
+            <button class="create-subcategory-or-card-button" @click="open = !open">+</button>
+
+            <div class="modal-create-subcategory-or-card-container" x-show="open">
+                <div class="modal-create-subcategory-or-card">
                     <div class="button-close">
                         <button class="close" type="button" @click="open = false"">X</button>
                     </div>
-                <button class="button-details">Criar subcategoria</button>
-                <button class="button-details">Criar cartão</button>
-                <button class="button-details">Criar cartão com IA</button>
+                <button type="button" class="button-details" @click="open_subcategory = true, open = false">Criar subcategoria</button>
+                <a href="{% url 'create_card' %}" class="button-details">Criar cartão</a>
+                <button type="button" class="button-details" @click="open_card_ai = true, open = false">Criar cartão com IA</button>
+                </div>
+            </div>
+
+            <div class="modal-create-category-container" x-show="open_subcategory">
+                <div class="modal-create-category">
+                    <div class="button-close">
+                        <button class="close" type="button" @click="open_subcategory = false">X</button>
+                    </div>
+                    <input type="text" placeholder="Nova categoria...">
+                    <button type="submit">Criar categoria</button>
+                </div>
+            </div>
+
+            <div class="modal-create-card-with-ai-container" x-show="open_card_ai">
+                <div class="modal-create-card-with-ai">
+                    <div class="button-close">
+                        <button class="close" type="button" @click="open_card_ai = false">X</button>
+                    </div>
+                    <div class="prompt-ai-components">
+                        <input type="text" class="prompt-ai" placeholder="Insira o texto ou link aqui..." required>
+                        <button type="submit" class="send-button" @click="open_chat_ai = true">&#x27A4;</button>
+                    </div>
+
+                    <!--Simulação de chat e loading-->
+                    <div class="questions-and-responses" x-show="open_chat_ai">
+                        <div class="question">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Praesentium sed molestias perspiciatis facilis voluptatibus blanditiis culpa adipisci quas obcaecati. Ipsa eos repudiandae aperiam eligendi voluptatem? Culpa iure distinctio minima blanditiis.</div>
+                        <div class="response">Deck criado com sucesso!</div>
+                        <div class="question">Pergunta aqui</div>
+                        <div class="response">Deck criado com sucesso!</div>
+                        <div class="question">Pergunta aqui</div>
+                        <div class="response">Deck criado com sucesso!</div>
+                    </div>
+
                 </div>
             </div>
         </div>
