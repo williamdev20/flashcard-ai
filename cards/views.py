@@ -10,3 +10,7 @@ def show_category(request):
 
 def create_subcategory_or_cards(request):
     return render(request, "cards/create_subcategory_or_cards.html")
+
+
+def view_card(request):
+    return render(request, "cards/view_card.html")

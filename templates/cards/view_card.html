@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <link rel="stylesheet" href="{% static 'css/cards/view_card.css' %}">
+    <title>Consultar cartão</title>
+</head>
+<body>
+    <main>
+        <div class="container" x-data="{open: true}">
+            <button type="button" class="previous-card"><</button>
+            <div class="card-container" @click="open = !open">
+                <div class="question" x-show="open">Pergunta aqui</div>
+                <div class="response" x-show="!open">Resposta aqui</div>
+            </div>
+            <button type="button" class="next-card">></button>
+        </div>
+    </main>
+</body>
+</html>

@@ -7,4 +7,5 @@ urlpatterns = [
     path('category/', views.show_category, name="show_category"),
     # /category/<str:category_name>
     path('category/create_subcategory_or_cards/', views.create_subcategory_or_cards, name="create_subcategory_or_cards"),
+    path('categort/view_card/', views.view_card, name="view_card")
 ]
