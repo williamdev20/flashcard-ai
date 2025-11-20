@@ -11,11 +11,17 @@
     <main>
         <h2>Cadastro</h2>
         <div class="container">
-            <label>Username</label>
-            <input type="text" placeholder="Digite seu nome de usuário" required>
-            <label>Senha</label>
-            <input type="text" placeholder="Digite sua senha" required>
-            <button type="submit">Cadastrar</button>
+            <form action="{% url 'register' %}" method="post">
+                {% csrf_token %}
+                <label>Username</label>
+                <input type="text" name="username" placeholder="Digite seu nome de usuário" required>
+                <label>Senha</label>
+                <input type="password" name="password" placeholder="Digite sua senha" required>
+                {% if error %}
+                    <p class="error">{{ error }}</p>
+                {% endif %}
+                <button type="submit">Cadastrar</button>
+            </form>
         </div>
     </main>
 </body>
