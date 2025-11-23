@@ -10,18 +10,9 @@
 </head>
 <body>
     <main> 
-        <div class="subcategories-and-cards-container">
-            <!-- Aqui vai vir um for pra listar todas as categorias -->
-             <a class="subcategory-card" href="{% url 'create_subcategory_or_cards' %}">
-                Subcategory 1
-             </a>
-             <a class="subcategory-card" href="{% url 'create_subcategory_or_cards' %}">
-                Subcategory 2
-             </a>
-             <a class="subcategory-card" href="{% url 'create_subcategory_or_cards' %}">
-                Subcategory 3
-             </a>
-
+        <div class="subcategories-and-cards-container" id="subcategory-content">
+             {% include "cards/partials/subcategories_list.html" %}
+        
              <!-- Aqui vai vir um for pra listar os cards -->
               <a class="card" href="{% url 'view_card' %}">
                 Deck 1
@@ -54,8 +45,21 @@
                     <div class="button-close">
                         <button class="close" type="button" @click="open_subcategory = false">X</button>
                     </div>
-                    <input type="text" placeholder="Nova categoria...">
-                    <button type="submit">Criar categoria</button>
+                    <form
+                        action="{% url 'create_subcategory_or_cards' username=user.username category_slug=category.slug %}"
+                        method="post"
+                        hx-post="{% url 'create_subcategory_or_cards' username=user.username category_slug=category.slug %}"
+                        hx-target="#subcategory-content"
+                        hx-swap="innerHTML"
+                        hx-on::after-request="this.reset()"
+                    >
+                        {% csrf_token %}
+                        <input type="text" name="create_subcategory" placeholder="Nova subcategoria..." required>
+                        {% if error %}
+                            <p>{{ error }}</p>
+                        {% endif %}
+                        <button type="submit">Criar subcategoria</button>
+                    </form>
                 </div>
             </div>
 

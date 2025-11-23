@@ -75,7 +75,19 @@ body {
     border-radius: 30px;
     flex-direction: column;
     gap: 20px;
-    position: absolute;
+    position: relative;
+}
+    
+.modal-create-category form { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e7e4d5;
+    width: 350px;
+    height: 350px;
+    border-radius: 30px;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .button-close {
@@ -161,7 +173,19 @@ body {
         border-radius: 30px;
         flex-direction: column;
         gap: 20px;
-        position: absolute;
+        position: relative;
+    }
+
+    .modal-create-category form { 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #e7e4d5;
+        width: 250px;
+        height: 250px;
+        border-radius: 30px;
+        flex-direction: column;
+        gap: 20px;
     }
 
     .button-close {
@@ -185,14 +209,14 @@ body {
         background-color: #d1c089;
     }
 
-    .modal-create-category form input {
+    .modal-create-category input {
         width: 200px;
         height: 50px;
         border: none;
         border-radius: 10px;
     }
 
-    .modal-create-category form button {
+    .modal-create-category button {
         width: 100px;
         height: 30px;
         background-color: #703e3b;
@@ -202,7 +226,7 @@ body {
         cursor: pointer;
     }
 
-    .modal-create-category form button:hover {
+    .modal-create-category button:hover {
         background-color: #412e28;
     }
 }

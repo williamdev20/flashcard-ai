@@ -5,18 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'css/cards/show_category.css' %}">
     <title>Suas categorias</title>
 </head>
 <body>
     <main> 
-        <div class="categories-container">
-            <!-- Aqui vai vir um for pra listar todas as categorias -->
-             {% for category in categories %}
-                <a class="category-card" href="{% url 'create_subcategory_or_cards' %}">
-                    {{ category.name }}
-                </a>
-            {% endfor %}
+        <div class="categories-container" id="category-content">
+            {% include "cards/partials/category_list.html" %}
         </div>
     </main>
 
@@ -31,7 +27,14 @@
                     <div class="button-close">
                         <button class="close" type="button" @click="open = false"">X</button>
                     </div>
-                    <form action="{% url 'create_and_show_category' username=user.username %}" method="post">
+                    <form
+                        action="{% url 'create_and_show_category' username=user.username %}"
+                        method="post"
+                        hx-post="{% url 'create_and_show_category' username=user.username %}"
+                        hx-target="#category-content"
+                        hx-swap="innerHTML"
+                        hx-on::after-request="this.reset()"
+                    >
                         {% csrf_token %}
                         <input type="text" name="category_name" placeholder="Nova categoria..." required>
                         {% if error %}

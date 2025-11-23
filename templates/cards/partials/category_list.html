@@ -1,0 +1,5 @@
+{% for category in categories %}
+    <a class="category-card" href="{% url 'create_subcategory_or_cards' username=user.username category_slug=category.slug %}">
+        {{ category.name }}
+    </a>
+{% endfor %}
