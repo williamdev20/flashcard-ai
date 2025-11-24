@@ -50,4 +50,24 @@ class Subcategory(models.Model):
     def __str__(self):
         return f"Subcategory: {self.name}"
 
-        
+
+class Deck(models.Model):
+    subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE)
+    name = models.CharField(max_length=200, blank=False, null=False)
+    slug = models.SlugField(blank=False, null=False)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
+    class Meta:
+        unique_together = [
+            ("subcategory", "name"),
+            ("subcategory", "slug")
+        ]
+        verbose_name = "Deck"
+        verbose_name_plural = "Decks"
+
+    def __str__(self):
+        return f"Deck: {self.name}"

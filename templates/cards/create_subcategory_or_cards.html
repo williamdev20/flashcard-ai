@@ -25,7 +25,7 @@
                     <button class="close" type="button" @click="open = false">X</button>
                 </div>
                 <a class="button-details" href="{% url 'view_card' %}">Consultar cartão</a>
-                <a class="button-details" href="{% url 'create_card' %}" >Criar cartão</a>
+                <a class="button-details" href="{% url 'create_card' username=user.username category_slug=category.slug subcategory_slug=subcategory.slug deck_slug=deck.slug %}" >Criar cartão</a>
                 <button type="button" class="button-details">Criar cartão com IA</button>
             </div>
         </div>

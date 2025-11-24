@@ -9,11 +9,6 @@ from .models import Category, Subcategory
 
 
 @login_required(login_url="/login/")
-def create_card(request):
-    return render(request, "cards/create_card.html")
-
-
-@login_required(login_url="/login/")
 def create_and_show_category(request, username):
     error = ""
 
@@ -89,13 +84,18 @@ def create_subcategory_or_cards(request, username, category_slug):
     return render(request, "cards/create_subcategory_or_cards.html", {
         "category": category,
         "error": error,
-        "subcategories": subcategories
+        "subcategories": subcategories,
     })
 
 
 @login_required(login_url="/login/")
 def show_cards_and_decks(request, username, category_slug, subcategory_slug):
     return render(request, "cards/show_cards_and_decks.html")
+
+
+@login_required(login_url="/login/")
+def create_card(request, username, category_slug, subcategory_slug, deck_slug):
+    return render(request, "cards/create_card.html")
 
 
 @login_required(login_url="/login/")
