@@ -1,5 +1,5 @@
 {% for subcategory in subcategories %}
-    <a class="subcategory-card">
+    <a class="subcategory-card" href="{% url 'show_cards_and_decks' username=user.username category_slug=category.slug subcategory_slug=subcategory.slug %}">
         {{ subcategory.name }}
     </a>
 {% endfor %}

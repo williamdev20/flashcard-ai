@@ -59,7 +59,7 @@ def create_subcategory_or_cards(request, username, category_slug):
         raise Http404()
 
     if request.user.username != username:
-        raise PermissionDenied
+        raise PermissionDenied # Status 403 - Logado, mas sem permissão para acessar tal
 
     category = get_object_or_404(Category, user=request.user, slug=category_slug)
     
@@ -91,6 +91,11 @@ def create_subcategory_or_cards(request, username, category_slug):
         "error": error,
         "subcategories": subcategories
     })
+
+
+@login_required(login_url="/login/")
+def show_cards_and_decks(request, username, category_slug, subcategory_slug):
+    return render(request, "cards/show_cards_and_decks.html")
 
 
 @login_required(login_url="/login/")
