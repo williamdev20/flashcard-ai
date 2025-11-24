@@ -29,7 +29,6 @@ class Category(models.Model):
     
 
 
-# Falta rodar as migrações dessa tabela
 class Subcategory(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, blank=False, null=False)

@@ -9,14 +9,25 @@
     <title>Criar subcategoria ou cartão</title>
 </head>
 <body>
-    <main> 
+    <main x-data="{open: false}"> 
         <div class="subcategories-and-cards-container" id="subcategory-content">
              {% include "cards/partials/subcategories_list.html" %}
         
              <!-- Aqui vai vir um for pra listar os cards -->
-              <a class="card" href="{% url 'view_card' %}">
+              <button type="button" class="card" @click="open = !open">
                 Deck 1
-              </a>
+            </button>
+        </div>
+
+        <div class="modal-create-subcategory-or-card-container" x-show="open">
+            <div class="modal-create-subcategory-or-card">
+                <div class="button-close">
+                    <button class="close" type="button" @click="open = false">X</button>
+                </div>
+                <a class="button-details" href="{% url 'view_card' %}">Consultar cartão</a>
+                <a class="button-details" href="{% url 'create_card' %}" >Criar cartão</a>
+                <button type="button" class="button-details">Criar cartão com IA</button>
+            </div>
         </div>
     </main>
 
@@ -24,6 +35,7 @@
         <div class="deltail-container" x-data="{
                 open: false,
                 open_subcategory: false,
+                open_deck: false,
                 open_card_ai: false,
                 open_chat_ai: false
               }">
@@ -35,8 +47,8 @@
                         <button class="close" type="button" @click="open = false"">X</button>
                     </div>
                 <button type="button" class="button-details" @click="open_subcategory = true, open = false">Criar subcategoria</button>
-                <button type="button" class="button-details" @click="open_subcategory = true, open = false">Criar Deck</button>
-                <button type="button" class="button-details" @click="open_card_ai = true, open = false">Criar cartão com IA</button>
+                <button type="button" class="button-details" @click="open_deck = true, open = false">Criar Deck</button>
+                
                 </div>
             </div>
 
@@ -63,28 +75,30 @@
                 </div>
             </div>
 
-            <div class="modal-create-card-with-ai-container" x-show="open_card_ai">
-                <div class="modal-create-card-with-ai">
+            <div class="modal-create-category-container" x-show="open_deck">
+                <div class="modal-create-category">
                     <div class="button-close">
-                        <button class="close" type="button" @click="open_card_ai = false">X</button>
+                        <button class="close" type="button" @click="open_deck= false">X</button>
                     </div>
-                    <div class="prompt-ai-components">
-                        <input type="text" class="prompt-ai" placeholder="Insira o texto ou link aqui..." required>
-                        <button type="submit" class="send-button" @click="open_chat_ai = true">&#x27A4;</button>
-                    </div>
-
-                    <!--Simulação de chat e loading-->
-                    <div class="questions-and-responses" x-show="open_chat_ai">
-                        <div class="question">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Praesentium sed molestias perspiciatis facilis voluptatibus blanditiis culpa adipisci quas obcaecati. Ipsa eos repudiandae aperiam eligendi voluptatem? Culpa iure distinctio minima blanditiis.</div>
-                        <div class="response">Deck criado com sucesso!</div>
-                        <div class="question">Pergunta aqui</div>
-                        <div class="response">Deck criado com sucesso!</div>
-                        <div class="question">Pergunta aqui</div>
-                        <div class="response">Deck criado com sucesso!</div>
-                    </div>
-
+                    <form
+                        action="{% url 'create_subcategory_or_cards' username=user.username category_slug=category.slug %}"
+                        method="post"
+                        hx-post="{% url 'create_subcategory_or_cards' username=user.username category_slug=category.slug %}"
+                        hx-target="#subcategory-content"
+                        hx-swap="innerHTML"
+                        hx-on::after-request="this.reset()"
+                    >
+                        {% csrf_token %}
+                        <input type="text" name="create_subcategory" placeholder="Novo deck..." required>
+                        {% if error %}
+                            <p>{{ error }}</p>
+                        {% endif %}
+                        <button type="submit">Criar Deck</button>
+                    </form>
                 </div>
             </div>
+
+            
         </div>
     </footer>
 </body>

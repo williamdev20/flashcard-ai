@@ -6,13 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.8/dist/htmx.min.js" integrity="sha384-/TgkGk7p307TH7EXJDuUlgG3Ce1UVolAOFopFekQkkXihi5u/6OCvVKyz1W+idaz" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="{% static 'css/cards/show_category.css' %}">
+    <link rel="stylesheet" href="{% static 'css/cards/show_cards_or_decks.css' %}">
     <title>Suas categorias</title>
 </head>
 <body>
-    <main> 
-        <div class="categories-container" id="category-content">
-            {% include "cards/partials/category_list.html" %}
+    <main x-data="{open: false}"> 
+        <div class="categories-container">
+            <button type="button" class="card" @click="open = !open">
+                Deck 1
+            </button>
+        </div>
+
+        <div class="modal-create-subcategory-or-card-container" x-show="open">
+            <div class="modal-create-subcategory-or-card">
+                <div class="button-close">
+                    <button class="close" type="button" @click="open = false">X</button>
+                </div>
+                <a class="button-details" href="{% url 'view_card' %}">Consultar cartão</a>
+                <a class="button-details" href="{% url 'create_card' %}" >Criar cartão</a>
+                <button type="button" class="button-details">Criar cartão com IA</button>
+            </div>
         </div>
     </main>
 
@@ -25,7 +38,7 @@
             <div class="modal-create-category-container" x-show="open">
                 <div class="modal-create-category">
                     <div class="button-close">
-                        <button class="close" type="button" @click="open = false"">X</button>
+                        <button class="close" type="button" @click="open = false">X</button>
                     </div>
                     
                         {% csrf_token %}
