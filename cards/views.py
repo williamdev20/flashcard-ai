@@ -5,7 +5,7 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.contrib.auth.models import User
-from .models import Category, Subcategory
+from .models import Category, Subcategory, Deck
 
 
 @login_required(login_url="/login/")
@@ -46,7 +46,7 @@ def create_and_show_category(request, username):
 
 
 @login_required(login_url="/login/")
-def create_subcategory_or_cards(request, username, category_slug):
+def create_subcategory_or_cards(request, username: str, category_slug: str):
     error = ""
 
     user = User.objects.filter(username=username).first()
@@ -95,7 +95,23 @@ def show_cards_and_decks(request, username, category_slug, subcategory_slug):
 
 @login_required(login_url="/login/")
 def create_card(request, username, category_slug, subcategory_slug, deck_slug):
-    return render(request, "cards/create_card.html")
+
+    user = User.objects.filter(username=username).first()
+    if user is None:
+        raise Http404()
+    
+    if request.user.username != username:
+        raise PermissionDenied
+
+    category = get_object_or_404(Category, user=request.user, slug=category_slug)
+    subcategory = get_object_or_404(Subcategory, category=category, slug=subcategory_slug)
+    deck = get_object_or_404(Deck, subcategory=subcategory, slug=deck_slug)
+
+    return render(request, "cards/create_card.html", {
+        "category_slug": category.slug,
+        "subcategory_slug": subcategory.slug,
+        "deck_slug": deck.slug
+    })
 
 
 @login_required(login_url="/login/")

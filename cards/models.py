@@ -19,7 +19,7 @@ class Category(models.Model):
 
 
     def save(self, *args, **kwargs):
-        if not self.slug:
+        if not self.slug and self.slug is not None:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
@@ -35,7 +35,7 @@ class Subcategory(models.Model):
     slug = models.SlugField(blank=False, null=False)
 
     def save(self, *args, **kwargs):
-        if not self.slug:
+        if not self.slug and self.slug is not None:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
@@ -57,7 +57,7 @@ class Deck(models.Model):
     slug = models.SlugField(blank=False, null=False)
 
     def save(self, *args, **kwargs):
-        if not self.slug:
+        if not self.slug and self.slug is not None:
             self.slug = slugify(self.name)
         super().save(*args, **kwargs)
 
