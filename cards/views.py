@@ -90,7 +90,21 @@ def create_subcategory_or_cards(request, username: str, category_slug: str):
 
 @login_required(login_url="/login/")
 def show_cards_and_decks(request, username, category_slug, subcategory_slug):
-    return render(request, "cards/show_cards_and_decks.html")
+
+    user = User.objects.filter(username=username).first()
+    if user is None:
+        raise Http404()
+    
+    if request.user.username != username:
+        raise PermissionDenied
+    
+    category = get_object_or_404(Category, user=request.user, slug=category_slug)
+    subcategory = get_object_or_404(Subcategory, category=category, slug=subcategory_slug)
+
+    return render(request, "cards/show_cards_and_decks.html", {
+        "category_slug": category.slug,
+        "subcategory_slug": subcategory.slug
+    })
 
 
 @login_required(login_url="/login/")

@@ -26,7 +26,7 @@
                 </div>
                 <a class="button-details" href="{% url 'view_card' %}">Consultar cartão</a>
                 {% if not subcategory and not deck %}
-                    <a class="button-details" href="{% url 'create_card' username=user.username category_slug=category.slug %}" >Criar cartão</a>
+                    <a class="button-details" href="{% url 'create_card_without_subs_and_decks' username=user.username category_slug=category.slug %}" >Criar cartão</a>
                 {% else %}
                     <a class="button-details" href="{% url 'create_card' username=user.username category_slug=category.slug subcategory_slug=subcategory.slug deck_slug=deck.slug %}" >Criar cartão</a>
                 {% endif %}
